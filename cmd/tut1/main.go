@@ -4,6 +4,7 @@ package main
 // need to create function main
 
 import (
+	"errors"
 	"fmt"
 	"unicode/utf8"
 )
@@ -69,5 +70,64 @@ func main() {
 
 	fmt.Println(myConst)
 
+	fmt.Println("FUNCTIONS")
+	printMe("HI this is me")
 
+	var result2, remainder, err = intDivision(11, 10)
+	if err != nil{
+		fmt.Println(err.Error())
+	} else if remainder == 0 {
+		fmt.Printf("The result of the integer division is %v", result2)
+	} else {
+		fmt.Printf("The result is %v and the remainder is %v", result2, remainder) // printf formatting
+	}
+	fmt.Println()
+
+	switch{
+		case err!=nil:
+			fmt.Println(err.Error())
+		case remainder == 0:
+			fmt.Printf("The result of the integer division is %v", result2)
+		default:
+			fmt.Printf("The result is %v and the remainder is %v", result2, remainder)
+
+	}
+	fmt.Println()
+
+	// the break statement here is implied
+
+	// can also have conditional switch
+
+	switch remainder{
+	case 0:
+		fmt.Printf("The division was exact")
+	case 1,2:
+		fmt.Printf("The division was close")
+	default:
+		fmt.Printf("The division was not close ")
+	}
+	fmt.Println()
+
+
+	fmt.Println(intDivision(4,3))
+
+
+}
+
+
+// functions
+
+func printMe(printValue string){ // curly braces has to be on this line
+	fmt.Println(printValue)
+}
+
+func intDivision(numerator int, denominator int) (int, int, error) { // need to specify what we want to return
+	var err error // error is nil rn
+	if denominator == 0 {
+		err = errors.New("cannot divide by zero")
+		return 0,0,err
+	}
+	var result int = numerator/denominator
+	var remainder int = numerator % denominator
+	return result, remainder, err
 }
